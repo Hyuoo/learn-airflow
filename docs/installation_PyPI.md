@@ -118,6 +118,8 @@ AIRFLOW_HOME=/var/lib/airflow airflow db init
 
 명령 실행 시 `/var/lib/airflow`에 아래와 같이 초기화된다.
 
+이후 postgres설정 후 다시 `airflow db init`을 실행 할 예정이지만, 한번 실행 해야 `airflow.cfg`가 생성된다.
+
 ```
 $ ls -l
 total 544
@@ -128,7 +130,7 @@ drwxrwxr-x 3 airflow airflow   4096 Dec 27 13:52 logs
 -rw-rw-r-- 1 airflow airflow   4771 Dec 27 13:52 webserver_config.py
 ```
 
-#### airflow.cfg 환경파일 수정
+#### airflow.cfg 환경파일 수정 (executor, db)
 
 - 기본설정은 SequentialExecutor인데, 이는 싱글스레드 전용이라 병렬처리를 위해 LocalExecutor로 바꿔줘야한다.
 - DB연결스트링을 postgres로 바꾼다.
@@ -142,8 +144,11 @@ executor = LocalExecutor
 [database]
 sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@localhost:5432/airflow
 ```
+포맷은 다음과 같다 `postgresql+psycopg2://[USER]:[PASSWORD]@[HOST]:[PORT]/[DATABASE]`
 
 #### 변경내용으로 Airflow 재설정
+
+다시 `init`하게 되면 설정 한 postgres의 스키마 내에 테이블들이 생성된다.
 
 ```
 AIRFLOW_HOME=/var/lib/airflow airflow db init

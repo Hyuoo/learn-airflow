@@ -10,7 +10,7 @@
 # perf : 코드 성능 향상
 # style : 코드 의미에 영향을 주지 않는 변경사항 (스타일, 서식)
 # chore : 빌드 부분 혹은 패키지 매니저 수정사항
-# 그 외 요소 Create, Update, Add, Initial
+# 그 외 요소 Edit, Create, Update, Add, Initial
 ################
 
 ################

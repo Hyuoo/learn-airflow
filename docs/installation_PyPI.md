@@ -40,6 +40,8 @@ sudo pip3 install launchpadlib
 sudo pip3 install setuptools --upgrade
 ```
 
+![pip_dependency_conflict](/images/installation_airflow_01.png)
+
 #### airflow 설치 및 기타 모듈 설치
 
 ```
@@ -154,7 +156,7 @@ sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@localhost:5432/airflow
 AIRFLOW_HOME=/var/lib/airflow airflow db init
 ```
 
-[!이미지]<img>
+![airflow_db_init](/images/installation_airflow_02.png)
 
 ## Airflow 웹서버, 스케줄러 실행
 
@@ -228,7 +230,7 @@ sudo systemctl status airflow-webserver
 sudo systemctl status airflow-scheduler
 ```
 
-## Airflow webserver 로그인 계정 생성
+## Airflow webserver 로그인 계정 생성 (user생성)
 
 airflow 계정에서 실행되어야 한다.
 

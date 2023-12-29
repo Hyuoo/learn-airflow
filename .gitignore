@@ -1,0 +1,8 @@
+
+/dags/__*__
+
+/venv
+
+# airflow config
+/logs
+/plugins

@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  airflow-standalone:
+    build:
+      context: .
+      dockerfile: standalone-dockerfile
+    # image: "apache/airflow:slim-2.6.3"
+    env_file:
+      - .env
+    command: standalone
+    volumes:
+      - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
+      - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+      - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+      - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    ports:
+      - 8080:8080
+    

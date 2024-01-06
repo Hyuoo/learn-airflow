@@ -266,7 +266,7 @@ airflow계정으로 홈디렉토리의 dags폴더(`/var/lib/airflow/dags/`)로 �
 
 `~/.bashrc`파일에 다음 내용을 추가한다.
 ```
-ARIRFLOW_HOME=/var/lib/airflow
+AIRFLOW_HOME=/var/lib/airflow
 export AIRFLOW_HOME
 cd ~
 ```

@@ -1,7 +1,6 @@
 # Using Production Docker Images
 
 > [데이터엔지니어링 airflow-setup Docker](https://github.com/keeyong/airflow-setup/blob/main/docs/Airflow%20Docker%20Local%20Setup.md#docker-settings)   
-> kjh
 
 프로덕션 도커 이미지를 사용하여 Airflow를 실행
 - `Ubuntu 22.04.3 LTS` (`WSL2`)
@@ -34,6 +33,8 @@ Docker Compose version v2.21.0
 
 #### 2.6.3버전 yaml파일 다운로드
 
+url중간의 버전을 바꿔서 설치 가능.
+
 ```
 curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.6.3/docker-compose.yaml'
 ```
@@ -44,6 +45,12 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.6.3/docker-compose.y
 에어플로우 초기화와 redis, postgres 초기화 및 실행이 진행된다.
 
 > init을 먼저 호출하지 않아도 알아서 먼저 실행된다.
+> ```
+> hyuoo-airflow-init-1  | User "airflow" created with role "Admin"
+> hyuoo-airflow-init-1  | 2.6.3
+> hyuoo-airflow-init-1 exited with code 0
+> ```
+> init이 정상적으로 완료되면 위와 같은 메시지로 끝난다.
 
 ```
 # docker compose up airflow-init
@@ -76,3 +83,10 @@ docker exec -it -u root <CONTAINER_ID> sh
 ```
 
 > 예를들어 `No module named 'MySQLdb'`에러가 발생하면, root로 로그인하여 패키지관리자 업데이트, 패키지 설치 등의 작업을 수행할 수 있다.
+
+## 뒷정리
+
+컨테이너, 볼륨, 데이터베이스 데이터, 다운로드 이미지 모두 삭제하기
+```
+docker compose down --volumes --rmi all
+```

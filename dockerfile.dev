@@ -3,16 +3,16 @@ FROM apache/airflow:slim-2.6.3
 USER root
 
 # ENV AIRFLOW_HOME=/opt/airflow
-ENV PATH=${PATH}:/home/airflow/.local/bin
+# ENV PATH=${PATH}:/home/airflow/.local/bin
 
 RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-
 USER airflow
 
 RUN airflow db init
+# RUN airflow db migrate
 RUN airflow users create \
     --role Admin \
     --username airflow \

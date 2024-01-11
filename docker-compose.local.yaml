@@ -17,14 +17,16 @@ services:
     restart: always
   
   airflow-webserver:
-    build:
-      context: .
-      dockerfile: dockerfile
+    image: hopeace6/airflow-local:2.6.3-python3.7
+    # build:
+    #   context: .
+    #   dockerfile: dockerfile
     command: webserver
     env_file:
       - .env
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__PARALLELISM: "0"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@postgres/airflow"
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}

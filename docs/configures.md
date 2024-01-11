@@ -1,4 +1,4 @@
-`/examples/airflow.cfg` 파일 참고 (2.6.3버전 기준)
+`/config/airflow.cfg` 파일 참고 (2.6.3버전 기준)
 
 #### airflow 예제 제거
 ```

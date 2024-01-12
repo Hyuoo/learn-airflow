@@ -59,6 +59,11 @@ sudo pip3 install --ignore-installed "apache-airflow[celery,mysql,postgres,amazo
 sudo pip3 install oauth2client gspread pandas
 ```
 
+#### 이후 추가 설치
+```
+pip install "apache-airflow[other_provider]==2.6.3"
+```
+
 ## airflow:airflow 계정 생성
 
 airflow서비스를 ubuntu유저가 아닌, airflow유저를 기반으로 실행할 것이기 때문에 계정 설정을 한다.

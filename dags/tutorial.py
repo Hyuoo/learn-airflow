@@ -5,11 +5,11 @@ Documentation that goes along with the Airflow tutorial located
 """
 from __future__ import annotations
 
-from datetime import datetime, timedelta
-from textwrap import dedent
-
 from airflow import DAG
 from airflow.operators.bash import BashOperator
+
+from datetime import datetime, timedelta
+from textwrap import dedent
 
 
 # default_args로 정의된 argument들은 생성되는 operator로 전달된다.

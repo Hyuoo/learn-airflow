@@ -11,6 +11,8 @@ import psycopg2
 나라 정보 API는 아래 링크 참고.
 (*별도의 API Key 필요없음)
 https://restcountries.com/#about-this-project-important-information
+
+api endpoint: "https://restcountries.com/v3.1/all"
 """
 
 """
@@ -21,6 +23,13 @@ API 결과에서
 - area: ["area"]
 세 항목 추출하여 full-refresh 형식으로 적재하기
 schedule: 매주 토요일 오전 6시 30분
+
++ region, timezone, 한국어 표기도 추가로 가져와서 적재
+
+---
+
+docker-compose.local.yaml로 실행된
+postgres metadata db를 그대로 사용해서 적재 후 결과 출력.
 """
 
 
@@ -108,10 +117,11 @@ def load_to_db(table, records, schema=None):
 def print_result(table_name):
     cur = get_connection()
     cur.execute(f"SELECT * FROM {table_name};")
+    records = cur.fetchall()
 
-    for record in cur.fetchall():
-        print(record)
-
+    for record in records:
+        logging.info(str(record))
+    logging.info(f"record count: {len(records)}")
 
 @dag(
     dag_id="example_kdt_homework_get_country",

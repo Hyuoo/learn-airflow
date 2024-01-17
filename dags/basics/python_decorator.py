@@ -17,7 +17,8 @@ with DAG(
 ) as dag:
 
     # 선언 위치는 상관 없음
-    @task
+    # task_id를 직접 지정할수도 있다.
+    @task(task_id='deco_task_goodbye')
     def print_goodbye():
         print("goodbye!")
         return "goodbye!"

@@ -2,6 +2,11 @@
 
 에어플로우를 공부하며 기록한 레포지토리.
 
+> 공부 소스들
+> - [github: apache/airflow](https://github.com/apache/airflow)
+> - [airflow: image building (Dockerfile)](https://airflow.apache.org/docs/docker-stack/build.html)
+> 
+
 ## 에어플로우 환경
 
 학습을 위한 Airflow: Docker compose를 이용해 scheduler, webserver, postgres로 구성
@@ -14,18 +19,15 @@
 - `Postgres`를 사용한 `LocalExecutor`
     - Postgres Version: `13`
 
+
 (
     [docs/installation_PyPI.md](/docs/installation_PyPI.md)와 [git:puckel/docker-airflow](https://github.com/puckel/docker-airflow)레포지토리를 참고하여 작성함.
 )
 
 
-#### Image pull
+### LocalExecutor Airflow compose up :
 
-```
-docker pull hopeace6/airflow-local:2.6.3-python3.7
-```
-
-#### LocalExecutor Airflow compose up :
+- dockerhub image: `hopeace6/airflow-local:2.6.3-python3.7`
 
 ```
 docker compose -f docker-compose.local.yaml up -d
@@ -33,7 +35,3 @@ docker compose -f docker-compose.local.yaml up -d
 
 
 
-> 공부 소스들
-> 
-> [image building (Dockerfile)](https://airflow.apache.org/docs/docker-stack/build.html)
-> 

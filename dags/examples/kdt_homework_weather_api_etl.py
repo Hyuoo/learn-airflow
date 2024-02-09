@@ -158,7 +158,7 @@ def etl(schema, table, lat, lon, api_key):
         raise
 
 with DAG(
-    dag_id = 'kdt_homework_weather_to_redshift',
+    dag_id = 'example_kdt_homework_weather_api_etl',
     start_date = datetime(2024,1,1),
     schedule = '0 2 * * *',
     max_active_runs = 1,

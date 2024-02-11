@@ -25,8 +25,12 @@ services:
     env_file:
       - .env
     environment:
+      AIRFLOW_VAR_DATA_DIR: /opt/airflow/data
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__CORE__PARALLELISM: "0"
+      AIRFLOW__CORE__PARALLELISM: 0
+      AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: 4
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 8
+      AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@postgres/airflow"
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
@@ -34,6 +38,7 @@ services:
       - ./dags:/var/lib/airflow/dags
       - ./logs:/var/lib/airflow/logs
       - ./config:/var/lib/airflow/config
+      # - ./data:/opt/airflow/data
       # - ./plugins:/var/lib/airflow/plugins
     ports:
       - "8080:8080"
@@ -49,3 +54,4 @@ services:
 
 volumes:
   postgres-db-volume:
+  

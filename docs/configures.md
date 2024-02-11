@@ -1,6 +1,6 @@
 `/config/airflow.cfg` 파일 참고 (2.6.3버전 기준)
 
-cfg파일에 대한 변경이 있을 경우, webserver와 scheduler를 재실행 해 주어야 함.
+cfg파일에 대한 변경이 있을 경우, **webserver**와 **scheduler**를 재실행 해 주어야 함.
 
 
 #### airflow 예제 제거
@@ -46,6 +46,17 @@ max_active_tasks_per_dag = 16
 [database]
 sql_alchemy_conn = postgres://...
 ```
+동시성 및 병렬성에 대해서는 cfg env외에도 DAG 레벨에서 직접 설정할 수 있다. (`실행중인 DAG = DAG runs`)
+```
+DAG(
+    "example_dag",
+    max_active_runs=1,      # 한번에 실행 가능한 DAG 수
+    max_active_tasks=1,     # 하나의 DAG runs에서 최대 실행가능 TASK 수
+    concurrency=16,         # 모든 DAG runs에서 최대 실행가능 TASK 수
+)
+# max_active_runs는 default: max_active_runs_per_dag
+# 나머지 두개는 default: max_active_tasks_per_dag
+```
 
 ## Airflow Webserver
 
@@ -61,11 +72,6 @@ dags_folder = /var/lib/airflow/dags
 dag_dir_list_interval = 300
 ```
 
-#### API를 통해서 config 정보 요청 가능 여부
-```
-[webserver]
-expose_config=True
-```
 
 ## Loggig
 
@@ -81,9 +87,10 @@ child_process_log_directory = /var/lib/airflow/logs/scheduler
 #### [민감정보를 로그에서 UI나 작업로그에서 마스킹](https://airflow.apache.org/docs/apache-airflow/stable/security/secrets/mask-sensitive-values.html)
 
 variable의 값이나 connection의 json필드(extra json)를 마스킹한다.   
-> Xcom이나 다른 채널을 통해서 들어오는 민감정보는 마스킹되지 않음에 주의
->
-> 예를들어 task1에서 password를 xcom을 통해 task2로 전달하면 이는 마스킹되지 않는다.
+> *Xcom이나 다른 채널을 통해서 들어오는 민감정보는 마스킹되지 않음에 주의*
+> 
+> *예를들어 task1에서 password를 xcom을 통해 task2로 전달하면 이는 마스킹되지 않는다.*
+
 - connection의 password는 항상 마스킹
 - 다음 키워드들이 들어가는 경우 마스킹
     - `access_token`, `api_key`, `apikey`, `authorization`, `passphrase`, `passwd`, `password`, `private_key`, `secret`, `token`
@@ -96,4 +103,41 @@ variable의 값이나 connection의 json필드(extra json)를 마스킹한다.
 sensitive_var_conn_names = comma,separated,sensitive,names
 # 모두 이 값이 활성화 될 경우에만 마스킹
 hide_sensitive_var_conn_fields = True
+```
+
+## [API](https://airflow.apache.org/docs/apache-airflow/stable/security/api.html)
+
+.cfg의 auth_backend를 통해 인증방법을 설정.
+
+`airflow config get-value api auth_backends` 커맨드를 통해서 현재 설정값을 확인할 수 있다.
+
+> *airflow 2.3.0을 포함한 버전부터 auth_backend는 하나만 되었지만, 이후부터 여러 백엔드를 지원함.*
+
+```
+[api]
+# 기본값은 세션정보로 인증
+auth_backends = airflow.api.auth.backend.session
+```
+
+> 공식 compose파일에는 다음과 같이 이미 설정되어 있음.   
+> `AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'`
+
+#### Basic authentication (기본 인증)
+
+사용자 이름과 비밀번호를 통해서 인증함.
+
+`airflow users create`로 생성된 유저 또는 web UI를 통해서 생성 할 수도 있다. (metadata db에 생성되어있는 사용자.)
+
+```
+[api]
+auth_backends = airflow.api.auth.backend.basic_auth
+```
+
+아래와 같은식으로 사용할 수 있다.
+
+```
+ENDPOINT_URL="http://localhost:8080/"
+curl -X GET  \
+    --user "username:password" \
+    "${ENDPOINT_URL}/api/v1/pools"
 ```

@@ -46,7 +46,7 @@ from datetime import timedelta
 
 
 dag = DAG(
-    dag_id = 'example_lesson_mysql_to_redshift',
+    dag_id = 'example_kdt_lesson_mysql_to_redshift',
     start_date = datetime(2022,4,24),
     schedule = '0 9 * * *',
     max_active_runs = 1,  # 

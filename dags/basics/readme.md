@@ -10,7 +10,7 @@ Airflow에 대한 기본적인 개념 또는 오퍼레이터에 대해서 공부
     - logical_date
     - Backfill
     - partitioning
-- Dynamic Dag
+- [Dynamic Dag](./dynamic_dag/)
 
 ## Operator/Task
 

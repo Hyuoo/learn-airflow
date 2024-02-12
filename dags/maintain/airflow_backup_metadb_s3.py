@@ -67,7 +67,7 @@ DAG_ID = 'airflow_backup_metadatadb_to_s3'
 with DAG(
         DAG_ID,
         schedule_interval="0 8 * * *",
-        start_date=datetime(2022, 3, 17),
+        start_date=datetime(2024, 1, 1),
         catchup=False,
         default_args={
             'retries': 1,

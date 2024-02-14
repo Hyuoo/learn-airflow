@@ -35,6 +35,5 @@ airflow webserver -p 8080
 웹 UI로 접속하고 싶다면 아래 명령으로 유저를 생성해야 함.
 
 ```
-airflow users create --role Admin --username airflow --email airflow@
-e --firstname airflow --lastname airflow --password airflow
+airflow users create --role Admin --username airflow --email airflow --firstname airflow --lastname airflow --password airflow
 ```

@@ -18,5 +18,5 @@ for f in os.listdir(file_dir):
         with open(f"{file_dir}/{f}", "r") as cf:
             config = yaml.safe_load(cf)
             # with open(f"dags/get_price_{config['dag_id']}.py", "w") as f:
-            with open(f"{file_dir}/dynamic_get_price_{config['dag_id']}.py", "w") as f:
-                f.write(template.render(config))
+            with open(f"{file_dir}/dynamic_get_price_{config['dag_id']}.py", "w") as gen_f:
+                gen_f.write(template.render(config))

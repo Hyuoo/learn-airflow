@@ -13,7 +13,7 @@ need pip
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from dags.plugins import gsheet
+from plugins import gsheet
 from datetime import datetime
 
 

@@ -48,7 +48,7 @@ from airflow.models import Variable
 
 from datetime import datetime
 from datetime import timedelta
-from dags.plugins import s3, gsheet
+from plugins import s3, gsheet
 
 
 def download_tab_in_gsheet(**context):
